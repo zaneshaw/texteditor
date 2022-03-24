@@ -49,6 +49,12 @@ document.addEventListener("keydown", (e) => {
                 scrub--;
             } else if (e.code == "Delete") {
                 lines[ln] = lines[ln].removeCharAt(scrub+1);
+            } else if (e.code == "Enter") {
+                var str = lines[ln];
+                lines.splice(ln, 1);
+                lines.splice(ln, 0, str.substring(0, scrub), str.substring(scrub));
+                ln++;
+                scrub = 0;
             }
             break;
     }
