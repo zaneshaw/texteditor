@@ -118,6 +118,11 @@ function Draw() {
 
     DrawText(" ".repeat(scrub) + "|", margin-(ctx.measureText(" ").width/2), scrollOffset+(lineHeight*(ln+1)), fontSize, color.highlight);
 }
+
+// Import
+document.getElementById("import").addEventListener("change", (e) => {
+    console.log("importing...");
+});
 //#endregion
 
 //#region Util
