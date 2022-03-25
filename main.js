@@ -124,8 +124,6 @@ function ApplyScroll() {
 
 // Import
 document.getElementById("import").onchange = (e) => {
-    console.log(e.target.files[0]);
-    
     var reader = new FileReader();
     reader.onload = function(e) {
         var output = e.target.result;
