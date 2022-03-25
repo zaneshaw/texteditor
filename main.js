@@ -75,17 +75,6 @@ document.addEventListener("keydown", (e) => {
 });
 //#endregion
 
-
-
-
-
-// todo - split line with enter/return
-
-
-
-
-
-
 //#region Functions
 function Init() {
     c.width = cWidth;
