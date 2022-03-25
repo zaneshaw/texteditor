@@ -10,6 +10,7 @@ let margin = 50;
 let scrollOffset = 0;
 let lineHeight = 27;
 let maxScroll = 22;
+let caretBlinkRate = 530;
 let color = {
     primary: "#ffce96",
     secondary: "#f1f2da",
@@ -26,10 +27,12 @@ var lines = [
 var ln = 0;
 var scrub = 0;
 var scroll = maxScroll;
+var caretVisible;
 //#endregion
 
 //#region Events
 document.addEventListener("keydown", (e) => {
+    ResetCaretBlink();
     switch (e.key) {
         case "ArrowLeft":
             scrub--;
@@ -108,8 +111,9 @@ function Draw() {
         DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, scrollOffset+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
         DrawText(lines[i], margin, scrollOffset+(lineHeight*(i+1)), fontSize, color.primary);
     }
-
-    DrawText(" ".repeat(scrub) + "|", margin-(ctx.measureText(" ").width/2), scrollOffset+(lineHeight*(ln+1)), fontSize, color.highlight);
+    
+    if (caretVisible)
+        DrawText(" ".repeat(scrub) + "|", margin-(ctx.measureText(" ").width/2), scrollOffset+(lineHeight*(ln+1)), fontSize, color.highlight);
 }
 
 function ApplyScroll() {
@@ -120,6 +124,18 @@ function ApplyScroll() {
         scrollOffset += lineHeight;
         scroll--;
     }
+}
+
+var caretBlink = setInterval(() => {
+    caretVisible = !caretVisible;
+}, caretBlinkRate);
+
+function ResetCaretBlink() {
+    caretVisible = true;
+    clearInterval(caretBlink);
+    caretBlink = setInterval(() => {
+        caretVisible = !caretVisible;
+    }, caretBlinkRate);
 }
 
 // Import
