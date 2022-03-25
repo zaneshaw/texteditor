@@ -123,14 +123,33 @@ function ApplyScroll() {
 }
 
 // Import
-document.getElementById("import").addEventListener("change", (e) => {
-    console.log("importing...");
-});
+document.getElementById("import").onchange = (e) => {
+    console.log(e.target.files[0]);
+    
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var output = e.target.result;
+        
+        lines = output.split("\n");
+
+        ln = 0;
+        scrub = 0;
+        scroll = maxScroll;
+        scrollOffset = 0;
+        ApplyScroll();
+    }
+    reader.readAsText(e.target.files[0]);
+
+    document.getElementById("import").value = null;
+}
 
 // Export
-document.getElementById("export").addEventListener("change", (e) => {
-    console.log("exporting...");
-});
+document.getElementById("export").onclick = (e) => {
+    var a = document.createElement("a");
+    a.href = window.URL.createObjectURL(new Blob([lines.join("\n")], {type: "text/plain"}));
+    a.download = "export.txt";
+    a.click();
+}
 
 //#endregion
 

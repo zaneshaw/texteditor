@@ -1,3 +1,7 @@
 * {
     font-family: monospace;
 }
+
+input[type="file"] {
+    display: none;
+}
