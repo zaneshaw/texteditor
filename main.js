@@ -9,7 +9,7 @@ let fontSize = 24;
 let margin = 50;
 let scrollOffset = 0;
 let lineHeight = 27;
-let maxScroll = 21;
+let maxScroll = 22;
 let scroll = maxScroll;
 let color = {
     primary: "#ffce96",
@@ -86,10 +86,10 @@ document.addEventListener("keydown", (e) => {
     ln = Clamp(ln, 0, lines.length-1);
     scrub = Clamp(scrub, 0, lines[ln].length);
 
-    if (ln >= scroll) {
+    if (ln >= scroll-1) {
         scrollOffset -= lineHeight;
         scroll++;
-    } else if (ln+1 <= scroll-maxScroll && scroll != maxScroll) {
+    } else if (ln < scroll-maxScroll && scroll != maxScroll) {
         scrollOffset += lineHeight;
         scroll--;
     }
