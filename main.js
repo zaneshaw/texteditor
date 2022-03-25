@@ -44,11 +44,23 @@ document.addEventListener("keydown", (e) => {
             } else if (e.code == "Space") {
                 lines[ln] = lines[ln].slice(0, scrub) + " " + lines[ln].slice(scrub);
                 scrub++;
-            } else if (e.code == "Backspace" && scrub != 0) {
-                lines[ln] = lines[ln].removeCharAt(scrub);
-                scrub--;
+            } else if (e.code == "Backspace") {
+                if (scrub == 0 && ln != 0) {
+                    scrub = lines[ln-1].length;
+                    lines[ln-1] = lines[ln-1] + lines[ln];
+                    lines.splice(ln, 1);
+                    ln--;
+                } else if (scrub != 0) {
+                    lines[ln] = lines[ln].removeCharAt(scrub);
+                    scrub--;
+                }
             } else if (e.code == "Delete") {
-                lines[ln] = lines[ln].removeCharAt(scrub+1);
+                if (scrub == lines[ln].length && ln != lines.length-1) {
+                    lines[ln] = lines[ln] + lines[ln+1];
+                    lines.splice(ln+1, 1);
+                } else {
+                    lines[ln] = lines[ln].removeCharAt(scrub+1);
+                }
             } else if (e.code == "Enter") {
                 var str = lines[ln];
                 lines.splice(ln, 1);
