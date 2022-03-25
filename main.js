@@ -13,9 +13,9 @@ let color = {
     background: "#00303b"
 }
 var lines = [
-    "abcdefg",
+    "Try typing something!",
     "1234",
-    "jksakjhlfsjkhlafsakfsljh"
+    "abcd"
 ]
 var ln = 0;
 var scrub = 0;
