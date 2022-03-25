@@ -10,7 +10,6 @@ let margin = 50;
 let scrollOffset = 0;
 let lineHeight = 27;
 let maxScroll = 22;
-let scroll = maxScroll;
 let color = {
     primary: "#ffce96",
     secondary: "#f1f2da",
@@ -26,6 +25,7 @@ var lines = [
 ]
 var ln = 0;
 var scrub = 0;
+var scroll = maxScroll;
 //#endregion
 
 //#region Events
