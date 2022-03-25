@@ -123,6 +123,12 @@ function Draw() {
 document.getElementById("import").addEventListener("change", (e) => {
     console.log("importing...");
 });
+
+// Export
+document.getElementById("export").addEventListener("change", (e) => {
+    console.log("exporting...");
+});
+
 //#endregion
 
 //#region Util
