@@ -85,14 +85,7 @@ document.addEventListener("keydown", (e) => {
     }
     ln = Clamp(ln, 0, lines.length-1);
     scrub = Clamp(scrub, 0, lines[ln].length);
-
-    if (ln >= scroll-1) {
-        scrollOffset -= lineHeight;
-        scroll++;
-    } else if (ln < scroll-maxScroll && scroll != maxScroll) {
-        scrollOffset += lineHeight;
-        scroll--;
-    }
+    ApplyScroll();
 });
 //#endregion
 
@@ -117,6 +110,16 @@ function Draw() {
     }
 
     DrawText(" ".repeat(scrub) + "|", margin-(ctx.measureText(" ").width/2), scrollOffset+(lineHeight*(ln+1)), fontSize, color.highlight);
+}
+
+function ApplyScroll() {
+    if (ln >= scroll-1) {
+        scrollOffset -= lineHeight;
+        scroll++;
+    } else if (ln < scroll-maxScroll && scroll != maxScroll) {
+        scrollOffset += lineHeight;
+        scroll--;
+    }
 }
 
 // Import
