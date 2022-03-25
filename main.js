@@ -144,10 +144,14 @@ document.getElementById("import").onchange = (e) => {
 }
 
 // Export
-document.getElementById("export").onclick = (e) => {
+document.getElementById("export").onclick = () => {
+    let fileName = prompt("File name:");
+    if (fileName == null || fileName == "")
+        return;
+
     var a = document.createElement("a");
     a.href = window.URL.createObjectURL(new Blob([lines.join("\n")], {type: "text/plain"}));
-    a.download = "export.txt";
+    a.download = `${fileName}.txt`;
     a.click();
 }
 
