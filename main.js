@@ -66,6 +66,10 @@ document.addEventListener("keydown", (e) => {
                 lines.splice(ln, 0, str.substring(0, scrub), str.substring(scrub));
                 ln++;
                 scrub = 0;
+            } else if (e.key == "Tab") {
+                e.preventDefault();
+                lines[ln] = lines[ln].slice(0, scrub) + "    " + lines[ln].slice(scrub);
+                scrub += 4;
             } else if (e.key.length == 1) {
                 lines[ln] = lines[ln].slice(0, scrub) + e.key + lines[ln].slice(scrub);
                 scrub += 1;
