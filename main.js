@@ -130,7 +130,7 @@ var caretBlink = setInterval(() => {
     caretVisible = !caretVisible;
 }, caretBlinkRate);
 
-function ResetCaretBlink() {
+function ResetCaretBlink() { // Cry :D
     caretVisible = true;
     clearInterval(caretBlink);
     caretBlink = setInterval(() => {
