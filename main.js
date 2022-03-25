@@ -6,12 +6,15 @@ const ctx = c.getContext("2d");
 let cWidth = 800;
 let cHeight = 600;
 let fontSize = 24;
+let contentMargin = {x: 50, y: 10};
 let color = {
     primary: "#ffce96",
     secondary: "#f1f2da",
     highlight: "#ff7777",
-    background: "#00303b"
+    background: "#00303b",
+    background_secondary: "#003845"
 }
+
 var lines = [
     "Try typing something!",
     "1234",
@@ -93,12 +96,15 @@ function Init() {
 function Draw() {
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
-
+    ctx.fillStyle = color.background_secondary;
+    ctx.fillRect(contentMargin.x, ((27*(ln))+7)+contentMargin.y, cWidth-contentMargin.x, 27);
+    
     for (let i = 0; i < lines.length; i++) {
-        DrawText(lines[i], 100, 100+(27*i), fontSize, ln == i ? color.secondary : color.primary);
+        DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, contentMargin.y+(27*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
+        DrawText(lines[i], contentMargin.x, contentMargin.y+(27*(i+1)), fontSize, color.primary);
     }
 
-    DrawText(" ".repeat(scrub) + "|", 100-(ctx.measureText(" ").width/2), 100+(27*ln), fontSize, color.highlight);
+    DrawText(" ".repeat(scrub) + "|", contentMargin.x-(ctx.measureText(" ").width/2), contentMargin.y+(27*(ln+1)), fontSize, color.highlight);
 }
 //#endregion
 
