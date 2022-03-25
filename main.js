@@ -37,11 +37,10 @@ document.addEventListener("keydown", (e) => {
             ln++;
             break;
         default:
-            console.log(e.code);
-            if (e.code.startsWith("Key") || e.code.startsWith("Digit")) {
-                lines[ln] = lines[ln].slice(0, scrub) + e.key + lines[ln].slice(scrub);
-                scrub++;
-            } else if (e.code == "Space") {
+            if (e.metaKey || e.altKey || e.location != 0)
+                break;
+
+            if (e.code == "Space") {
                 lines[ln] = lines[ln].slice(0, scrub) + " " + lines[ln].slice(scrub);
                 scrub++;
             } else if (e.code == "Backspace") {
@@ -67,6 +66,9 @@ document.addEventListener("keydown", (e) => {
                 lines.splice(ln, 0, str.substring(0, scrub), str.substring(scrub));
                 ln++;
                 scrub = 0;
+            } else if (e.key.length == 1) {
+                lines[ln] = lines[ln].slice(0, scrub) + e.key + lines[ln].slice(scrub);
+                scrub += 1;
             }
             break;
     }
