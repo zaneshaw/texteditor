@@ -105,7 +105,7 @@ function Draw() {
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
     ctx.fillStyle = color.background_secondary;
-    ctx.fillRect(margin, ((lineHeight*(ln))+7)+scrollOffset, cWidth-margin, lineHeight);
+    ctx.fillRect(margin, ((lineHeight*(ln))+7)+scrollOffset, cWidth-margin-10, lineHeight);
     
     for (let i = 0; i < lines.length; i++) {
         DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, scrollOffset+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
