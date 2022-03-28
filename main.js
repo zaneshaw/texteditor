@@ -109,7 +109,7 @@ function Draw() {
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
     ctx.fillStyle = color.background_secondary;
-    ctx.fillRect(scrollY, ((lineHeight*(ln))+7)+appliedScrollY, cWidth-scrollY-10, lineHeight);
+    ctx.fillRect(scrollY, ((lineHeight*(ln))+7)+appliedScrollY, cWidth-scrollY, lineHeight);
 
     for (let i = 0; i < lines.length; i++) {
         DrawText(lines[i], appliedScrollX, appliedScrollY+(lineHeight*(i+1)), fontSize, color.primary);
