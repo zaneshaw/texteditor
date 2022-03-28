@@ -7,7 +7,8 @@ let cWidth = 800;
 let cHeight = 600;
 let fontSize = 24;
 let lineHeight = 27;
-let maxScrollX = 22;
+let textOffset = 50;
+let maxScrollX = 56;
 let maxScrollY = 22;
 let caretBlinkRate = 530;
 let color = {
@@ -25,7 +26,7 @@ var lines = [
 ]
 var ln = 0;
 var scrub = 0;
-var scrollX = 50;
+var scrollX = 0;
 var scrollY = maxScrollY;
 var caretVisible;
 //#endregion
@@ -103,8 +104,7 @@ function Init() {
 
 function Draw() {
     var appliedScrollY = -((scrollY-22)*lineHeight);
-    var appliedScrollX = -(scrollX*ctx.measureText(" ").width)+770;
-    console.log(appliedScrollX);
+    var appliedScrollX = -(scrollX*ctx.measureText(" ").width)+textOffset;
 
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
@@ -129,10 +129,11 @@ function ApplyScroll() {
         scrollY--;
     }
     
-    if (scrub >= scrollX-1) {
+    if (scrub >= maxScrollX+(scrollX)) {
         scrollX++;
+    } else if (scrub <= scrollX && scrollX > 0) {
+        scrollX--;
     }
-    // else if
 }
 
 var caretBlink = setInterval(() => {
