@@ -6,8 +6,6 @@ const ctx = c.getContext("2d");
 let cWidth = 800;
 let cHeight = 600;
 let fontSize = 24;
-let margin = 50;
-let scrollOffset = 0;
 let lineHeight = 27;
 let maxScroll = 22;
 let caretBlinkRate = 530;
@@ -26,7 +24,8 @@ var lines = [
 ]
 var ln = 0;
 var scrub = 0;
-var scroll = maxScroll;
+var scrollX = maxScroll;
+var scrollY = 50;
 var caretVisible;
 //#endregion
 
@@ -102,27 +101,30 @@ function Init() {
 }
 
 function Draw() {
+    var appliedScrollX = -((scrollX-22)*lineHeight);
+    scrollY = 50-(scrub*ctx.measureText(" ").width);
+
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
     ctx.fillStyle = color.background_secondary;
-    ctx.fillRect(margin, ((lineHeight*(ln))+7)+scrollOffset, cWidth-margin-10, lineHeight);
-    
+    ctx.fillRect(scrollY, ((lineHeight*(ln))+7)+appliedScrollX, cWidth-scrollY-10, lineHeight);
+
     for (let i = 0; i < lines.length; i++) {
-        DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, scrollOffset+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
-        DrawText(lines[i], margin, scrollOffset+(lineHeight*(i+1)), fontSize, color.primary);
+        DrawText(lines[i], scrollY, appliedScrollX+(lineHeight*(i+1)), fontSize, color.primary);
+        ctx.fillStyle = color.background;
+        ctx.fillRect(0, ((lineHeight*(i))+7)+appliedScrollX, 50, lineHeight);
+        DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, appliedScrollX+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
     }
-    
+
     if (caretVisible)
-        DrawText(" ".repeat(scrub) + "|", margin-(ctx.measureText(" ").width/2), scrollOffset+(lineHeight*(ln+1)), fontSize, color.highlight);
+    DrawText(" ".repeat(scrub) + "|", scrollY-(ctx.measureText(" ").width/2), appliedScrollX+(lineHeight*(ln+1)), fontSize, color.highlight);
 }
 
 function ApplyScroll() {
-    if (ln >= scroll-1) {
-        scrollOffset -= lineHeight;
-        scroll++;
-    } else if (ln < scroll-maxScroll && scroll != maxScroll) {
-        scrollOffset += lineHeight;
-        scroll--;
+    if (ln >= scrollX-1) {
+        scrollX++;
+    } else if (ln < scrollX-maxScroll && scrollX != maxScroll) {
+        scrollX--;
     }
 }
 
@@ -149,7 +151,6 @@ document.getElementById("import").onchange = (e) => {
         ln = 0;
         scrub = 0;
         scroll = maxScroll;
-        scrollOffset = 0;
         ApplyScroll();
     }
     reader.readAsText(e.target.files[0]);
