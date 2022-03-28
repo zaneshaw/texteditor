@@ -7,7 +7,8 @@ let cWidth = 800;
 let cHeight = 600;
 let fontSize = 24;
 let lineHeight = 27;
-let maxScroll = 22;
+let maxScrollX = 22;
+let maxScrollY = 22;
 let caretBlinkRate = 530;
 let color = {
     primary: "#ffce96",
@@ -24,8 +25,8 @@ var lines = [
 ]
 var ln = 0;
 var scrub = 0;
-var scrollX = maxScroll;
-var scrollY = 50;
+var scrollX = 50;
+var scrollY = maxScrollY;
 var caretVisible;
 //#endregion
 
@@ -101,31 +102,37 @@ function Init() {
 }
 
 function Draw() {
-    var appliedScrollX = -((scrollX-22)*lineHeight);
-    scrollY = 50-(scrub*ctx.measureText(" ").width);
+    var appliedScrollY = -((scrollY-22)*lineHeight);
+    var appliedScrollX = -(scrollX*ctx.measureText(" ").width)+770;
+    console.log(appliedScrollX);
 
     ctx.fillStyle = color.background;
     ctx.fillRect(0, 0, cWidth, cHeight);
     ctx.fillStyle = color.background_secondary;
-    ctx.fillRect(scrollY, ((lineHeight*(ln))+7)+appliedScrollX, cWidth-scrollY-10, lineHeight);
+    ctx.fillRect(scrollY, ((lineHeight*(ln))+7)+appliedScrollY, cWidth-scrollY-10, lineHeight);
 
     for (let i = 0; i < lines.length; i++) {
-        DrawText(lines[i], scrollY, appliedScrollX+(lineHeight*(i+1)), fontSize, color.primary);
+        DrawText(lines[i], appliedScrollX, appliedScrollY+(lineHeight*(i+1)), fontSize, color.primary);
         ctx.fillStyle = color.background;
-        ctx.fillRect(0, ((lineHeight*(i))+7)+appliedScrollX, 50, lineHeight);
-        DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, appliedScrollX+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
+        ctx.fillRect(0, ((lineHeight*(i))+7)+appliedScrollY, 50, lineHeight);
+        DrawText(" ".repeat(3-(i+1).toString().length) + (i+1).toString(), 0, appliedScrollY+(lineHeight*(i+1)), fontSize, ln == i ? color.secondary : color.primary);
     }
 
     if (caretVisible)
-        DrawText(" ".repeat(scrub) + "|", scrollY-(ctx.measureText(" ").width/2), appliedScrollX+(lineHeight*(ln+1)), fontSize, color.highlight);
+        DrawText(" ".repeat(scrub) + "|", appliedScrollX-(ctx.measureText(" ").width/2), appliedScrollY+(lineHeight*(ln+1)), fontSize, color.highlight);
 }
 
 function ApplyScroll() {
-    if (ln >= scrollX-1) {
-        scrollX++;
-    } else if (ln < scrollX-maxScroll && scrollX != maxScroll) {
-        scrollX--;
+    if (ln >= scrollY-1) {
+        scrollY++;
+    } else if (ln < scrollY-maxScrollY && scrollY != maxScrollY) {
+        scrollY--;
     }
+    
+    if (scrub >= scrollX-1) {
+        scrollX++;
+    }
+    // else if
 }
 
 var caretBlink = setInterval(() => {
