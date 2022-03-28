@@ -117,7 +117,7 @@ function Draw() {
     }
 
     if (caretVisible)
-    DrawText(" ".repeat(scrub) + "|", scrollY-(ctx.measureText(" ").width/2), appliedScrollX+(lineHeight*(ln+1)), fontSize, color.highlight);
+        DrawText(" ".repeat(scrub) + "|", scrollY-(ctx.measureText(" ").width/2), appliedScrollX+(lineHeight*(ln+1)), fontSize, color.highlight);
 }
 
 function ApplyScroll() {
