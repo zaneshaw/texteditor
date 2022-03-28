@@ -8,6 +8,7 @@ let cHeight = 600;
 let fontSize = 24;
 let lineHeight = 27;
 let textOffset = 50;
+let maxLines = 999;
 let maxScrollX = 56;
 let maxScrollY = 22;
 let caretBlinkRate = 530;
@@ -71,7 +72,7 @@ document.addEventListener("keydown", (e) => {
                 } else {
                     lines[ln] = lines[ln].removeCharAt(scrub+1);
                 }
-            } else if (e.code == "Enter") {
+            } else if (e.code == "Enter" && lines.length < maxLines) {
                 var str = lines[ln];
                 lines.splice(ln, 1);
                 lines.splice(ln, 0, str.substring(0, scrub), str.substring(scrub));
