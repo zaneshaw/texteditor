@@ -92,6 +92,22 @@ document.addEventListener("keydown", (e) => {
     scrub = Clamp(scrub, 0, lines[ln].length);
     ApplyScroll();
 });
+
+document.getElementById("col-primary").addEventListener("input", () => {
+    color.primary = document.getElementById("col-primary").value;
+});
+document.getElementById("col-secondary").addEventListener("input", () => {
+    color.secondary = document.getElementById("col-secondary").value;
+});
+document.getElementById("col-highlight").addEventListener("input", () => {
+    color.highlight = document.getElementById("col-highlight").value;
+});
+document.getElementById("col-background").addEventListener("input", () => {
+    color.background = document.getElementById("col-background").value;
+});
+document.getElementById("col-background_secondary").addEventListener("input", () => {
+    color.background_secondary = document.getElementById("col-background_secondary").value;
+});
 //#endregion
 
 //#region Functions

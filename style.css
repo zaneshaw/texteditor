@@ -10,3 +10,33 @@ label {
     cursor: pointer;
     text-decoration: underline;
 }
+
+#color-scheme-container {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: right;
+}
+
+.color-scheme-item {
+    margin: 5px;
+}
+
+/* Keishi Hattori - https://stackoverflow.com/questions/11167281/webkit-css-to-control-the-box-around-the-color-in-an-inputtype-color */
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 32px;
+	height: 12px;
+    background-color: transparent;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0px;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
