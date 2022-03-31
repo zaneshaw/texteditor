@@ -93,6 +93,7 @@ document.addEventListener("keydown", (e) => {
     ApplyScroll();
 });
 
+//TODO make dynamic
 document.getElementById("col-primary").addEventListener("input", () => {
     color.primary = document.getElementById("col-primary").value;
 });
@@ -112,6 +113,7 @@ document.getElementById("col-background_secondary").addEventListener("input", ()
 
 //#region Functions
 function Init() {
+    //TODO make dynamic based off object keys (_=space)
     document.getElementById("col-primary").value = color.primary;
     document.getElementById("col-secondary").value = color.secondary;
     document.getElementById("col-highlight").value = color.highlight;
