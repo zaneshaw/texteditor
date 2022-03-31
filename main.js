@@ -191,6 +191,42 @@ document.getElementById("export").onclick = () => {
     a.click();
 }
 
+// Load Theme
+document.getElementById("theme_load").onchange = (e) => {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var output = e.target.result.split("\n");
+        output = output.filter(function(str) {
+            return /\S/.test(str);
+        });
+
+        // Read
+        try {
+            if (output.length != Object.keys(color).length) {
+                throw "INVALID THEME!";
+            }
+
+            //! Fix double foreach
+            var i = 0;
+            Object.entries(color).forEach(([key, value]) => {
+                if (!/^#[0-9A-F]{6}$/i.test(output[i])) {
+                    throw `INVALID THEME!\nInvalid color at line: ${i+1}`
+                }
+                i++;
+            });
+
+            i = 0;
+            Object.entries(color).forEach(([key, value]) => {
+                color[key] = output[i];
+                i++;
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    reader.readAsText(e.target.files[0]);
+}
+
 //#endregion
 
 //#region Util
