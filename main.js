@@ -227,6 +227,16 @@ document.getElementById("theme_load").onchange = (e) => {
     reader.readAsText(e.target.files[0]);
 }
 
+// Save Theme
+document.getElementById("theme_save").onclick = () => {
+    var colors = Object.values(color);
+
+    var a = document.createElement("a");
+    a.href = window.URL.createObjectURL(new Blob([colors.join("\n")], {type: "text/plain"}));
+    a.download = "theme.txt";
+    a.click();
+}
+
 //#endregion
 
 //#region Util
