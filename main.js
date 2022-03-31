@@ -112,6 +112,12 @@ document.getElementById("col-background_secondary").addEventListener("input", ()
 
 //#region Functions
 function Init() {
+    document.getElementById("col-primary").value = color.primary;
+    document.getElementById("col-secondary").value = color.secondary;
+    document.getElementById("col-highlight").value = color.highlight;
+    document.getElementById("col-background").value = color.background;
+    document.getElementById("col-background_secondary").value = color.background_secondary;
+
     c.width = cWidth;
     c.height = cHeight;
     setInterval(() => {
